@@ -1,3 +1,4 @@
+import 'package:fab_analytics/models/config_model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'fab_analytics_method_channel.dart';
@@ -25,5 +26,15 @@ abstract class FabAnalyticsPlatform extends PlatformInterface {
 
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<void> init(Config config) async {
+    throw UnimplementedError('init() has not been implemented.');
+  }
+
+  Future trace(String? userId,String fromScreen, String toScreen, String action,var packageInfo, Map? params,
+      [Config? config]) async {
+    throw UnimplementedError(
+        'trace() has not been implemented.');
   }
 }
