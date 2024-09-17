@@ -15,7 +15,7 @@ abstract class FabAnalyticsPlatform extends PlatformInterface {
   ///
   /// Defaults to [MethodChannelFabAnalytics].
   static FabAnalyticsPlatform get instance => _instance;
-  
+
   /// Platform-specific implementations should set this with their own
   /// platform-specific class that extends [FabAnalyticsPlatform] when
   /// they register themselves.
@@ -25,16 +25,16 @@ abstract class FabAnalyticsPlatform extends PlatformInterface {
   }
 
   Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('getPlatformVersion() has not been implemented.');
   }
 
   Future<void> init(Config config) async {
     throw UnimplementedError('init() has not been implemented.');
   }
 
-  Future trace(String? userId,String fromScreen, String toScreen, String action,var packageInfo, Map? params,
+  Future trace(String? userId, String fromScreen, String toScreen,
+      String action, var packageInfo, Map? params,
       [Config? config]) async {
-    throw UnimplementedError(
-        'trace() has not been implemented.');
+    throw UnimplementedError('trace() has not been implemented.');
   }
 }
