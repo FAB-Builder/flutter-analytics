@@ -1,5 +1,5 @@
 name: fab_analytics
-description: A new Flutter plugin project.
+description: "This package will be used for quick and easy integration with Fab Analytics in your app."
 version: 0.0.1
 homepage:
 
@@ -40,8 +40,11 @@ flutter:
     # then add platforms following the instruction here:
     # https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms
     # -------------------
-      some_platform:
-        pluginClass: somePluginClass
+      android:
+        package: com.fab.analytics
+        pluginClass: FabAnalyticsPlugin
+      ios:
+        pluginClass: FabAnalyticsPlugin
     # -------------------
 
   # To add assets to your plugin package, add an assets section, like this:

@@ -7,7 +7,13 @@ import 'package:fab_analytics/fab_analytics.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 // TODO : Add your crdentials
-const applicationId = "";
+// const applicationId = "";
+// const clientId = "";
+// const clientSecret = "";
+// const version = "";
+
+
+const applicationId = "66fa85c0c732fab445166d3f";
 const clientId = "";
 const clientSecret = "";
 const version = "";
