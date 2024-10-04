@@ -5,7 +5,7 @@ import 'package:fab_analytics/models/config_model.dart';
 import 'package:http/http.dart' as http;
 
 Future doTrace(String? userId, String fromScreen, String toScreen,
-    String action, var packageInfo, Map? params, Config config) async {
+    String? action, Map? params, Config config) async {
   try {
     final headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -19,8 +19,9 @@ Future doTrace(String? userId, String fromScreen, String toScreen,
       "action": action,
       "params": params,
       "platform": Platform.isAndroid ? "ANDROID" : "IOS",
-      "version": "${packageInfo?.version}-${packageInfo?.buildNumber}",
-      "packageName": packageInfo?.packageName,
+      "version":
+          "${config.packageInfo?.version}-${config.packageInfo?.buildNumber}",
+      "packageName": config.packageInfo?.packageName,
     });
 
     final response = await http.post(serverUrl, headers: headers, body: body);

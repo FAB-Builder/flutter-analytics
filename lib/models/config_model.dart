@@ -3,6 +3,7 @@ class Config {
   final String clientId;
   final String clientSecret;
   String version;
+  dynamic packageInfo;
 
   String? server;
   String? static;
@@ -19,6 +20,7 @@ class Config {
     required this.clientId,
     required this.clientSecret,
     this.version = "",
+    required this.packageInfo,
   });
 
   factory Config.fromJson(Map<String, String> json) {
@@ -26,6 +28,7 @@ class Config {
       applicationId: json['applicationId'] ?? "",
       clientId: json['clientId'] ?? "",
       clientSecret: json['clientSecret'] ?? "",
+      packageInfo: json['packageInfo'] ?? "",
     );
     if (json["category"] != null) {
       config.category = json["category"];

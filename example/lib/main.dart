@@ -7,13 +7,7 @@ import 'package:fab_analytics/fab_analytics.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 // TODO : Add your crdentials
-// const applicationId = "";
-// const clientId = "";
-// const clientSecret = "";
-// const version = "";
-
-
-const applicationId = "66fa85c0c732fab445166d3f";
+const applicationId = "";
 const clientId = "";
 const clientSecret = "";
 const version = "";
@@ -32,6 +26,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _fabAnalyticsPlugin = FabAnalytics();
+  String message = "";
 
   @override
   void initState() {
@@ -63,20 +58,32 @@ class _MyAppState extends State<MyApp> {
   }
 
   initFabAnalytics() async {
+    var packageInfo = await PackageInfo.fromPlatform();
     Config config = Config(
-        applicationId: applicationId,
-        clientId: clientId,
-        clientSecret: clientSecret,
-        version: version);
+      applicationId: applicationId,
+      clientId: clientId,
+      clientSecret: clientSecret,
+      version: version,
+      packageInfo: packageInfo,
+    );
     try {
-      var packageInfo = await PackageInfo.fromPlatform();
       await _fabAnalyticsPlugin.init(config!); // initialize the library
-      var response = await _fabAnalyticsPlugin.trace(
-          "1234", "fab analytics example", "home", "lauch", packageInfo, null);
-      print(response.toString());
-    } on PlatformException {
-      // Log exception and report studio@gameolive.com
+    } catch (e) {
+      print(e.toString());
     }
+  }
+
+  trace() async {
+    var response = await _fabAnalyticsPlugin.trace(
+      userId: "1234", //optional
+      fromScreen: "Home",
+      toScreen: "toScreen",
+      action: "trace_btn_clicked", //optional
+      params: {
+        "id": "5678",
+      }, //optional
+    );
+    return response;
   }
 
   @override
@@ -84,10 +91,30 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('FAB Analytics Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              ElevatedButton(
+                onPressed: () async {
+                  var response = await trace();
+                  if (response.statusCode == 200) {
+                    setState(() {
+                      message =
+                          "Traced successfully! hop on to your dashboard to view";
+                    });
+                  }
+                },
+                child: Text('Trace'),
+              ),
+              message != "" ? Text(message) : SizedBox(),
+            ],
+          ),
         ),
       ),
     );

@@ -32,9 +32,14 @@ abstract class FabAnalyticsPlatform extends PlatformInterface {
     throw UnimplementedError('init() has not been implemented.');
   }
 
-  Future trace(String? userId, String fromScreen, String toScreen,
-      String action, var packageInfo, Map? params,
-      [Config? config]) async {
+  Future trace({
+    String? userId,
+    required String fromScreen,
+    required String toScreen,
+    String? action,
+    Map? params,
+    Config? config,
+  }) async {
     throw UnimplementedError('trace() has not been implemented.');
   }
 }
