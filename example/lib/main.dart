@@ -1,19 +1,25 @@
 import 'package:fab_analytics/models/config_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:fab_analytics/fab_analytics.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:fab_analytics/widgets/analytics_material_app.dart';
+
+final GlobalKey appKey = GlobalKey();
 
 // TODO : Add your crdentials
-const applicationId = "";
+const applicationId = "66fa85c0c732fab445166d3f";
 const clientId = "";
 const clientSecret = "";
 const version = "";
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -65,9 +71,12 @@ class _MyAppState extends State<MyApp> {
       clientSecret: clientSecret,
       version: version,
       packageInfo: packageInfo,
+      isDebugMode: kDebugMode,
+      appKey: appKey,
     );
     try {
       await _fabAnalyticsPlugin.init(config!); // initialize the library
+      _fabAnalyticsPlugin.showScreenshotUploader(context: context);
     } catch (e) {
       print(e.toString());
     }
@@ -88,7 +97,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return AnalyticsMaterialApp(
+      appKey: appKey,
+      isDebugMode: kDebugMode,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('FAB Analytics Plugin example app'),

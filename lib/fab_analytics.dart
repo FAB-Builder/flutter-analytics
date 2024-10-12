@@ -6,6 +6,7 @@
 // https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms.
 
 import 'package:fab_analytics/models/config_model.dart';
+import 'package:flutter/widgets.dart';
 
 import 'fab_analytics_platform_interface.dart';
 
@@ -16,6 +17,14 @@ class FabAnalytics {
 
   Future<void> init(Config config) async {
     return FabAnalyticsPlatform.instance.init(config);
+  }
+
+  void showScreenshotUploader({
+    required BuildContext context,
+    Config? config,
+  }) {
+    return FabAnalyticsPlatform.instance
+        .showScreenshotUploader(context: context);
   }
 
   Future trace({

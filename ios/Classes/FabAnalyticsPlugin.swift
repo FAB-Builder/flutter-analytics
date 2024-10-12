@@ -1,10 +1,10 @@
 import Flutter
 import UIKit
 
-public class FabAnalyticslugin: NSObject, FlutterPlugin {
+public class FabAnalyticsPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "fab_analytics", binaryMessenger: registrar.messenger())
-    let instance = WapasPlugin()
+    let instance = FabAnalyticsPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

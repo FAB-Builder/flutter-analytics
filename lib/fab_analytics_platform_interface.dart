@@ -1,4 +1,5 @@
 import 'package:fab_analytics/models/config_model.dart';
+import 'package:flutter/widgets.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'fab_analytics_method_channel.dart';
@@ -30,6 +31,14 @@ abstract class FabAnalyticsPlatform extends PlatformInterface {
 
   Future<void> init(Config config) async {
     throw UnimplementedError('init() has not been implemented.');
+  }
+
+  void showScreenshotUploader({
+    required BuildContext context,
+    Config? config,
+  }) {
+    throw UnimplementedError(
+        'showScreenshotUploader() has not been implemented.');
   }
 
   Future trace({
