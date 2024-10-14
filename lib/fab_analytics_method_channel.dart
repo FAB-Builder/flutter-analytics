@@ -2,6 +2,7 @@ import 'package:fab_analytics/models/config_model.dart';
 import 'package:fab_analytics/services/trace_service.dart';
 import 'package:fab_analytics/widgets/screenshot_upload_button.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -33,8 +34,22 @@ class MethodChannelFabAnalytics extends FabAnalyticsPlatform {
     required BuildContext context,
     Config? config,
   }) {
-    config ??= CONFIG!;
-    screenshotUploadButton(config, context);
+    try {
+      config ??= CONFIG!;
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => ScreenShotUploadButton(
+      //       config: config!,
+      //       context: context,
+      //     ),
+      //   ),
+      // );
+      screenshotUploadButton(config, context);
+    } catch (e) {
+      print("ERROR showScreenshotUploader ${e.toString()}");
+    }
   }
 
   Future trace({

@@ -15,6 +15,7 @@ class AttachmentModel {
   String? createdById;
   String? updatedById;
   String? downloadUrl;
+  bool? isNew;
 
   AttachmentModel({
     this.id,
@@ -32,6 +33,7 @@ class AttachmentModel {
     this.createdById,
     this.updatedById,
     this.downloadUrl,
+    this.isNew,
   });
 
   AttachmentModel.fromJson(Map<String, dynamic> json) {
@@ -50,6 +52,7 @@ class AttachmentModel {
     createdById = json['createdById'];
     updatedById = json['updatedById'];
     downloadUrl = json['downloadUrl'];
+    isNew = json['new'];
   }
 
   Map<String, dynamic> toJson() {
@@ -69,6 +72,7 @@ class AttachmentModel {
     data['createdById'] = this.createdById;
     data['updatedById'] = this.updatedById;
     data['downloadUrl'] = this.downloadUrl;
+    data['new'] = this.isNew;
 
     return data;
   }

@@ -100,31 +100,33 @@ class _MyAppState extends State<MyApp> {
     return AnalyticsMaterialApp(
       appKey: appKey,
       isDebugMode: kDebugMode,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('FAB Analytics Plugin example app'),
-        ),
-        body: Container(
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('Running on: $_platformVersion\n'),
-              ElevatedButton(
-                onPressed: () async {
-                  var response = await trace();
-                  if (response.statusCode == 200) {
-                    setState(() {
-                      message =
-                          "Traced successfully! hop on to your dashboard to view";
-                    });
-                  }
-                },
-                child: Text('Trace'),
-              ),
-              message != "" ? Text(message) : SizedBox(),
-            ],
+      materialApp: MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('FAB Analytics Plugin example app'),
+          ),
+          body: Container(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Running on: $_platformVersion\n'),
+                ElevatedButton(
+                  onPressed: () async {
+                    var response = await trace();
+                    if (response.statusCode == 200) {
+                      setState(() {
+                        message =
+                            "Traced successfully! hop on to your dashboard to view";
+                      });
+                    }
+                  },
+                  child: Text('Trace'),
+                ),
+                message != "" ? Text(message) : SizedBox(),
+              ],
+            ),
           ),
         ),
       ),

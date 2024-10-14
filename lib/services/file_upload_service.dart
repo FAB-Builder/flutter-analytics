@@ -9,6 +9,9 @@ import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 import 'package:http_parser/http_parser.dart';
 
+String token =
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDUyN2E0MmYzZGM3N2NjYTIwNWIxZiIsImlhdCI6MTcyODcxOTg0MCwiZXhwIjoxNzI5MzI0NjQwfQ.vZb4rB7ghxqXokvL6W0rRteY17XukRcjhwcF2mMpgdY";
+
 class FileUploadService {
   Future<AttachmentCredentialsModel> getSecureStorageToken({
     required String tenantId,
@@ -19,8 +22,7 @@ class FileUploadService {
       String url =
           '${constants.API_HOST}/api/tenant/$tenantId/file/credentials?filename=$fileName&storageId=$storageId';
       var response = await http.get(Uri.parse(url), headers: {
-        "Authorization":
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDUyN2E0MmYzZGM3N2NjYTIwNWIxZiIsImlhdCI6MTcyODcxOTg0MCwiZXhwIjoxNzI5MzI0NjQwfQ.vZb4rB7ghxqXokvL6W0rRteY17XukRcjhwcF2mMpgdY",
+        "Authorization": token,
       });
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
@@ -91,13 +93,14 @@ class FileUploadService {
 
         attachmentModel = AttachmentModel(
           downloadUrl: attachCreds.downloadUrl,
-          // id: fileId,
+          id: fileId,
           name: fileName,
+          isNew: true,
           privateUrl: attachCreds.privateUrl,
           publicUrl: attachCreds.uploadCredentials!.publicUrl,
           sizeInBytes: fileBytes.length,
-          createdAt: DateTime.now().toIso8601String(),
-          updatedAt: DateTime.now().toIso8601String(),
+          // createdAt: DateTime.now().toIso8601String(),
+          // updatedAt: DateTime.now().toIso8601String(),
         );
         return attachmentModel;
       }
@@ -116,7 +119,7 @@ class FileUploadService {
     }
   }
 
-  Future<dynamic> updateMetadata({
+  Future<bool> updateMetadata({
     required String tenantId,
     required String id,
     required Map<String, dynamic> data,
@@ -127,13 +130,18 @@ class FileUploadService {
               "${constants.API_HOST}/api/tenant/$tenantId/screen-trace/$id"),
           body: jsonEncode(data),
           headers: {
-            "Authorization":
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDUyN2E0MmYzZGM3N2NjYTIwNWIxZiIsImlhdCI6MTcyODcxOTg0MCwiZXhwIjoxNzI5MzI0NjQwfQ.vZb4rB7ghxqXokvL6W0rRteY17XukRcjhwcF2mMpgdY",
+            "Authorization": token,
           });
       print("RESPONSE updateMetadata " + response.body);
-      return jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+      // return jsonDecode(response.body);
     } catch (e) {
       print("ERROR updateMetadata " + e.toString());
+      return false;
     }
   }
 }
