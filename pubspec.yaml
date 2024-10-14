@@ -1,6 +1,6 @@
 name: fab_analytics
 description: "This package will be used for quick and easy integration with Fab Analytics in your app."
-version: 0.0.2
+version: 0.0.3
 homepage: "https://analytics.fabbuilder.com"
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.2
+  http_parser: 4.0.2
   plugin_platform_interface: ^2.0.2
   path_provider: ^2.1.4
   scroll_screenshot: ^0.0.4

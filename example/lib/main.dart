@@ -17,9 +17,9 @@ const clientSecret = "";
 const version = "";
 
 void main() {
-  runApp(MaterialApp(
-    home: MyApp(),
-  ));
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {

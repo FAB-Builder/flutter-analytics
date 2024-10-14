@@ -7,7 +7,7 @@ import 'package:fab_analytics/models/attachment_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
-import 'package:http_parser/http_parser.dart';
+import 'package:http_parser/http_parser.dart' as httpParser;
 
 String token =
     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDUyN2E0MmYzZGM3N2NjYTIwNWIxZiIsImlhdCI6MTcyODcxOTg0MCwiZXhwIjoxNzI5MzI0NjQwfQ.vZb4rB7ghxqXokvL6W0rRteY17XukRcjhwcF2mMpgdY";
@@ -75,7 +75,7 @@ class FileUploadService {
           'file',
           fileBytes,
           filename: fileName,
-          contentType: MediaType('application', 'octet-stream'),
+          contentType: httpParser.MediaType('application', 'octet-stream'),
         );
         request.files.add(multipartFile);
 
