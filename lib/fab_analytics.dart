@@ -19,13 +19,13 @@ class FabAnalytics {
     return FabAnalyticsPlatform.instance.init(config);
   }
 
-  void showScreenshotUploader({
-    required BuildContext context,
-    Config? config,
-  }) {
-    return FabAnalyticsPlatform.instance
-        .showScreenshotUploader(context: context);
-  }
+  // void showScreenshotUploader({
+  //   required BuildContext context,
+  //   Config? config,
+  // }) {
+  //   return FabAnalyticsPlatform.instance
+  //       .showScreenshotUploader(context: context);
+  // }
 
   Future trace({
     String? userId,

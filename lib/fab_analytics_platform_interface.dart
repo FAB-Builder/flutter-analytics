@@ -33,13 +33,13 @@ abstract class FabAnalyticsPlatform extends PlatformInterface {
     throw UnimplementedError('init() has not been implemented.');
   }
 
-  void showScreenshotUploader({
-    required BuildContext context,
-    Config? config,
-  }) {
-    throw UnimplementedError(
-        'showScreenshotUploader() has not been implemented.');
-  }
+  // void showScreenshotUploader({
+  //   required BuildContext context,
+  //   Config? config,
+  // }) {
+  //   throw UnimplementedError(
+  //       'showScreenshotUploader() has not been implemented.');
+  // }
 
   Future trace({
     String? userId,

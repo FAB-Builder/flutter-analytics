@@ -131,6 +131,7 @@ class FileUploadService {
           body: jsonEncode(data),
           headers: {
             "Authorization": token,
+            'Content-Type': 'application/json; charset=UTF-8',
           });
       print("RESPONSE updateMetadata " + response.body);
       if (response.statusCode == 200) {

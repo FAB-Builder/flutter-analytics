@@ -1,4 +1,5 @@
 import 'package:fab_analytics/models/config_model.dart';
+import 'package:fab_analytics/widgets/screenshot_upload_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -15,6 +16,15 @@ const applicationId = "66fa85c0c732fab445166d3f";
 const clientId = "";
 const clientSecret = "";
 const version = "";
+Config config = Config(
+  applicationId: applicationId,
+  clientId: clientId,
+  clientSecret: clientSecret,
+  version: version,
+  packageInfo: null,
+  isDebugMode: kDebugMode,
+  appKey: appKey,
+);
 
 void main() {
   runApp(
@@ -65,18 +75,11 @@ class _MyAppState extends State<MyApp> {
 
   initFabAnalytics() async {
     var packageInfo = await PackageInfo.fromPlatform();
-    Config config = Config(
-      applicationId: applicationId,
-      clientId: clientId,
-      clientSecret: clientSecret,
-      version: version,
-      packageInfo: packageInfo,
-      isDebugMode: kDebugMode,
-      appKey: appKey,
-    );
+
+    config!.packageInfo = packageInfo;
     try {
       await _fabAnalyticsPlugin.init(config!); // initialize the library
-      _fabAnalyticsPlugin.showScreenshotUploader(context: context);
+      // _fabAnalyticsPlugin.showScreenshotUploader(context: context);
     } catch (e) {
       print(e.toString());
     }
@@ -102,6 +105,7 @@ class _MyAppState extends State<MyApp> {
       isDebugMode: kDebugMode,
       materialApp: MaterialApp(
         home: Scaffold(
+          floatingActionButton: ScreenshotUploadButton(config: config!),
           appBar: AppBar(
             title: const Text('FAB Analytics Plugin example app'),
           ),

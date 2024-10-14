@@ -29,28 +29,28 @@ class MethodChannelFabAnalytics extends FabAnalyticsPlatform {
     CONFIG = config;
   }
 
-  @override
-  void showScreenshotUploader({
-    required BuildContext context,
-    Config? config,
-  }) {
-    try {
-      config ??= CONFIG!;
+  // @override
+  // void showScreenshotUploader({
+  //   required BuildContext context,
+  //   Config? config,
+  // }) {
+  //   try {
+  //     config ??= CONFIG!;
 
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => ScreenShotUploadButton(
-      //       config: config!,
-      //       context: context,
-      //     ),
-      //   ),
-      // );
-      screenshotUploadButton(config, context);
-    } catch (e) {
-      print("ERROR showScreenshotUploader ${e.toString()}");
-    }
-  }
+  //     // Navigator.push(
+  //     //   context,
+  //     //   MaterialPageRoute(
+  //     //     builder: (context) => ScreenShotUploadButton(
+  //     //       config: config!,
+  //     //       context: context,
+  //     //     ),
+  //     //   ),
+  //     // );
+  //     screenshotUploadButton(config, context);
+  //   } catch (e) {
+  //     print("ERROR showScreenshotUploader ${e.toString()}");
+  //   }
+  // }
 
   Future trace({
     String? userId,
