@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Bug fixes
+
 ## 0.0.3
 
 - Screenshot uploader feature added and dark/light theme support
