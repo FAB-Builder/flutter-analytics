@@ -41,6 +41,11 @@ abstract class FabAnalyticsPlatform extends PlatformInterface {
   //       'showScreenshotUploader() has not been implemented.');
   // }
 
+  void takeScreenshot(
+      {required BuildContext context, required Config? config}) async {
+    throw UnimplementedError('takeScreenshot() has not been implemented.');
+  }
+
   Future trace({
     String? userId,
     required String fromScreen,

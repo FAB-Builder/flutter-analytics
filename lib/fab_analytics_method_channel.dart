@@ -1,7 +1,6 @@
 import 'package:fab_analytics/models/config_model.dart';
 import 'package:fab_analytics/services/trace_service.dart';
-import 'package:fab_analytics/widgets/screenshot_upload_button.dart';
-import 'package:flutter/foundation.dart';
+import 'package:fab_analytics/services/screenshot_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -52,6 +51,14 @@ class MethodChannelFabAnalytics extends FabAnalyticsPlatform {
   //   }
   // }
 
+  @override
+  void takeScreenshot(
+      {required BuildContext context, required Config? config}) async {
+    config ??= CONFIG!;
+    return takeAndUploadScreenshot(config: config, context: context);
+  }
+
+  @override
   Future trace({
     String? userId,
     required String fromScreen,

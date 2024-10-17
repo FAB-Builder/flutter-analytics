@@ -21,7 +21,7 @@ class _ScreenshotUploadButtonState extends State<ScreenshotUploadButton> {
   String? selectedOption = 'select';
   bool loading = false;
   bool screenshotUploaded = true;
-  // bool isVisi
+  // bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +32,17 @@ class _ScreenshotUploadButtonState extends State<ScreenshotUploadButton> {
             loading = true;
           });
           FileUploadService service = FileUploadService();
+          // setState(() {
+          //   isVisible = false;
+          // });
           String? base64String =
               await ScrollScreenshot.captureAndSaveScreenshot(
             // config.keys["homeScreen"]["key"],
             widget.config.appKey!,
           );
+          // setState(() {
+          //   isVisible = true;
+          // });
           Uint8List bytes = base64Decode(base64String!);
           Directory tempDir = await getTemporaryDirectory();
           String filePath = '${tempDir.path}/screenshot.png';

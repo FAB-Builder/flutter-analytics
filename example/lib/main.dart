@@ -10,6 +10,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:fab_analytics/widgets/analytics_material_app.dart';
 
 final GlobalKey appKey = GlobalKey();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 // TODO : Add your crdentials
 const applicationId = "66fa85c0c732fab445166d3f";
@@ -103,9 +104,12 @@ class _MyAppState extends State<MyApp> {
     return AnalyticsMaterialApp(
       appKey: appKey,
       isDebugMode: kDebugMode,
+      config: config,
+      navigatorKey: navigatorKey,
       materialApp: MaterialApp(
+        navigatorKey: navigatorKey,
         home: Scaffold(
-          floatingActionButton: ScreenshotUploadButton(config: config!),
+          // floatingActionButton: ScreenshotUploadButton(config: config!),
           appBar: AppBar(
             title: const Text('FAB Analytics Plugin example app'),
           ),

@@ -27,6 +27,12 @@ class FabAnalytics {
   //       .showScreenshotUploader(context: context);
   // }
 
+  void takeScreenshot(
+      {required BuildContext context, required Config? config}) async {
+    return FabAnalyticsPlatform.instance
+        .takeScreenshot(context: context, config: config);
+  }
+
   Future trace({
     String? userId,
     required String fromScreen,
