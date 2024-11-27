@@ -13,7 +13,7 @@ class Config {
   // String? static;
   // String application = "android";
 
-  // String? token = "";
+  static String? token;
   // String? orderBy = "";
   // int limit = 10;
   // int offset = 0;

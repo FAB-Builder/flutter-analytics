@@ -4,13 +4,14 @@ import 'dart:io';
 import 'package:fab_analytics/constants.dart';
 import 'package:fab_analytics/models/attachment_credentials_model.dart';
 import 'package:fab_analytics/models/attachment_model.dart';
+import 'package:fab_analytics/models/config_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 import 'package:http_parser/http_parser.dart' as httpParser;
 
-String token =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDUyN2E0MmYzZGM3N2NjYTIwNWIxZiIsImlhdCI6MTcyODcxOTg0MCwiZXhwIjoxNzI5MzI0NjQwfQ.vZb4rB7ghxqXokvL6W0rRteY17XukRcjhwcF2mMpgdY";
+// String token =
+//     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDUyN2E0MmYzZGM3N2NjYTIwNWIxZiIsImlhdCI6MTcyODcxOTg0MCwiZXhwIjoxNzI5MzI0NjQwfQ.vZb4rB7ghxqXokvL6W0rRteY17XukRcjhwcF2mMpgdY";
 
 class FileUploadService {
   Future<AttachmentCredentialsModel> getSecureStorageToken({
@@ -22,7 +23,7 @@ class FileUploadService {
       String url =
           '${constants.API_HOST}/api/tenant/$tenantId/file/credentials?filename=$fileName&storageId=$storageId';
       var response = await http.get(Uri.parse(url), headers: {
-        "Authorization": token,
+        "Authorization": "Bearer " + Config.token.toString(),
       });
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
@@ -30,9 +31,11 @@ class FileUploadService {
             AttachmentCredentialsModel.fromJson(jsonResponse);
         return creds;
       } else {
+        Config.token = null;
         throw Exception(response.reasonPhrase);
       }
     } catch (e) {
+      Config.token = null;
       throw Exception(e.toString());
     }
   }
@@ -130,17 +133,19 @@ class FileUploadService {
               "${constants.API_HOST}/api/tenant/$tenantId/screen-trace/$id"),
           body: jsonEncode(data),
           headers: {
-            "Authorization": token,
+            "Authorization": "Bearer " + Config.token.toString(),
             'Content-Type': 'application/json; charset=UTF-8',
           });
       print("RESPONSE updateMetadata " + response.body);
       if (response.statusCode == 200) {
         return true;
       } else {
+        Config.token = null;
         return false;
       }
       // return jsonDecode(response.body);
     } catch (e) {
+      Config.token = null;
       print("ERROR updateMetadata " + e.toString());
       return false;
     }
