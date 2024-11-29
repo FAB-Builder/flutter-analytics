@@ -13,15 +13,9 @@ final GlobalKey appKey = GlobalKey();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 // TODO : Add your crdentials
-const applicationId = "66fa85c0c732fab445166d3f";
-const clientId = "";
-const clientSecret = "";
-const version = "";
+const applicationId = "";
 Config config = Config(
   applicationId: applicationId,
-  clientId: clientId,
-  clientSecret: clientSecret,
-  version: version,
   packageInfo: null,
   isDebugMode: kDebugMode,
   appKey: appKey,

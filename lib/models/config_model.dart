@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 
 class Config {
   final String applicationId;
-  final String clientId;
-  final String clientSecret;
-  String version;
+  // final String clientId;
+  // final String clientSecret;
+  // String version;
   dynamic packageInfo;
   bool isDebugMode;
   GlobalKey? appKey;
@@ -21,9 +21,9 @@ class Config {
 
   Config({
     required this.applicationId,
-    required this.clientId,
-    required this.clientSecret,
-    this.version = "",
+    // required this.clientId,
+    // required this.clientSecret,
+    // this.version = "",
     required this.packageInfo,
     required this.isDebugMode,
     this.appKey,
@@ -32,8 +32,8 @@ class Config {
   factory Config.fromJson(Map<String, dynamic> json) {
     Config config = Config(
       applicationId: json['applicationId'] ?? "",
-      clientId: json['clientId'] ?? "",
-      clientSecret: json['clientSecret'] ?? "",
+      // clientId: json['clientId'] ?? "",
+      // clientSecret: json['clientSecret'] ?? "",
       packageInfo: json['packageInfo'] ?? "",
       isDebugMode: json['isDebugMode'] == "true",
       appKey: json['appKey'],
