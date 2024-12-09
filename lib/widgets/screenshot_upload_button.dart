@@ -11,6 +11,7 @@ import 'package:scroll_screenshot/scroll_screenshot.dart';
 
 class ScreenshotUploadButton extends StatefulWidget {
   Config config;
+
   ScreenshotUploadButton({super.key, required this.config});
 
   @override
@@ -21,6 +22,7 @@ class _ScreenshotUploadButtonState extends State<ScreenshotUploadButton> {
   String? selectedOption = 'select';
   bool loading = false;
   bool screenshotUploaded = true;
+
   // bool isVisible = true;
 
   @override
@@ -49,7 +51,7 @@ class _ScreenshotUploadButtonState extends State<ScreenshotUploadButton> {
           File file = File(filePath);
           file = await file.writeAsBytes(bytes!);
           AttachmentModel? attachmentModel = await service.uploadScreenshot(
-            tenantId: widget.config.applicationId,
+            tenantId: widget.config.credentials["applicationId"],
             image: file,
             context: context,
           );
@@ -57,7 +59,7 @@ class _ScreenshotUploadButtonState extends State<ScreenshotUploadButton> {
           if (attachmentModel != null) {
             // String? selectedOption;
             List<dynamic> response = await service.getMetadata(
-                tenantId: widget.config.applicationId);
+                tenantId: widget.config.credentials["applicationId"]);
             List<String> options = ['select'];
             response.asMap().forEach((index, map) {
               String displayName = "";
@@ -142,7 +144,8 @@ class _ScreenshotUploadButtonState extends State<ScreenshotUploadButton> {
                                     print(attachmentModel.toJson().toString());
                                     bool isUpdated =
                                         await service.updateMetadata(
-                                      tenantId: widget.config.applicationId,
+                                      tenantId: widget
+                                          .config.credentials["applicationId"],
                                       id: element["screentrace"]["_id"],
                                       data: data,
                                     );
@@ -205,7 +208,6 @@ class _ScreenshotUploadButtonState extends State<ScreenshotUploadButton> {
 }
 
 // void screenshotUploadButton(, BuildContext context) {
-  
 
 //   if (config.isDebugMode) {
 //     OverlayEntry? _overlayEntry;
@@ -216,7 +218,7 @@ class _ScreenshotUploadButtonState extends State<ScreenshotUploadButton> {
 //                 return Positioned(
 //                   right: 10.0,
 //                   bottom: 100.0,
-//                   child: 
+//                   child:
 //                 );
 //               },
 //             ));

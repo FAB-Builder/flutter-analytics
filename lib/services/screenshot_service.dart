@@ -28,15 +28,16 @@ void takeAndUploadScreenshot(
     File file = File(filePath);
     file = await file.writeAsBytes(bytes!);
     AttachmentModel? attachmentModel = await service.uploadScreenshot(
-      tenantId: config.applicationId,
+      tenantId: config.credentials["applicationId"],
       image: file,
       context: context,
     );
 
     if (attachmentModel != null) {
       // String? selectedOption;
-      List<dynamic> response =
-          await service.getMetadata(tenantId: config.applicationId);
+      List<dynamic> response = await service.getMetadata(
+        tenantId: config.credentials["applicationId"],
+      );
       List<String> options = ['select'];
       response.asMap().forEach((index, map) {
         String displayName = "";
@@ -118,7 +119,7 @@ void takeAndUploadScreenshot(
                               print(data.toString());
                               print(attachmentModel.toJson().toString());
                               bool isUpdated = await service.updateMetadata(
-                                tenantId: config.applicationId,
+                                tenantId: config.credentials["applicationId"],
                                 id: element["screentrace"]["_id"],
                                 data: data,
                               );

@@ -11,7 +11,7 @@ Future doTrace(String? userId, String fromScreen, String toScreen,
       'Content-Type': 'application/json; charset=UTF-8',
     };
     Uri serverUrl = Uri.parse(
-        '${constants.API_HOST}/api/tenant/${config.applicationId}/trace/${userId == "" ? "anonymous" : userId}/new');
+        '${constants.API_HOST}/api/tenant/${config.credentials["applicationId"]}/trace/${userId == "" ? "anonymous" : userId}/new');
 
     String body = jsonEncode({
       "src": fromScreen,

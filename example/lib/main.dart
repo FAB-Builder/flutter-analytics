@@ -15,7 +15,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 // TODO : Add your crdentials
 const applicationId = "";
 Config config = Config(
-  applicationId: applicationId,
+  credentials: {"applicationId": applicationId},
   packageInfo: null,
   isDebugMode: kDebugMode,
   appKey: appKey,
@@ -82,10 +82,12 @@ class _MyAppState extends State<MyApp> {
 
   trace() async {
     var response = await _fabAnalyticsPlugin.trace(
-      userId: "1234", //optional
+      userId: "1234",
+      //optional
       fromScreen: "Home",
       toScreen: "toScreen",
-      action: "trace_btn_clicked", //optional
+      action: "trace_btn_clicked",
+      //optional
       params: {
         "id": "5678",
       }, //optional
