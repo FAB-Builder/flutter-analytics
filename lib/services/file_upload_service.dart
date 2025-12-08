@@ -150,4 +150,31 @@ class FileUploadService {
       return false;
     }
   }
+
+  Future<bool> createMetadata({
+    required String tenantId,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      var response = await http.post(
+          Uri.parse("${constants.API_HOST}/api/tenant/$tenantId/screen-trace"),
+          body: jsonEncode(data),
+          headers: {
+            "Authorization": "Bearer " + Config.token.toString(),
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+      print("RESPONSE updateMetadata " + response.body);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        Config.token = null;
+        return false;
+      }
+      // return jsonDecode(response.body);
+    } catch (e) {
+      Config.token = null;
+      print("ERROR updateMetadata " + e.toString());
+      return false;
+    }
+  }
 }

@@ -12,6 +12,11 @@ import 'package:scroll_screenshot/scroll_screenshot.dart';
 
 void takeAndUploadScreenshot(
     {required BuildContext context, required Config config}) async {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => const Center(child: CircularProgressIndicator()),
+  );
   try {
     String? selectedOption = 'select';
 
@@ -49,9 +54,15 @@ void takeAndUploadScreenshot(
           if (map["screentrace"]["identifier"] != null) {
             identifier = map["screentrace"]["identifier"];
           }
+        } else {
+          if (map["_id"] != null) {
+            displayName = map["_id"];
+            identifier = map["_id"];
+          }
         }
         options.add(index.toString() + "-" + displayName + " : " + identifier);
       });
+      Navigator.pop(context);
       showDialog(
         context: context,
         builder: (context) {
@@ -67,10 +78,15 @@ void takeAndUploadScreenshot(
                   child: Column(
                     children: [
                       DropdownButton<String>(
+                        isExpanded: true,
                         items: options.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(
+                              value,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           );
                         }).toList(),
                         value: selectedOption,
@@ -134,6 +150,32 @@ void takeAndUploadScreenshot(
                                   });
                                 });
                               }
+                            } else {
+                              Map<String, dynamic> data = {
+                                "data": {
+                                  "identifier": element["_id"],
+                                  "displayName": element["_id"],
+                                  "image": [attachmentModel.toJson()],
+                                }
+                              };
+                              print('IMAGE');
+                              print(data.toString());
+                              print(attachmentModel.toJson().toString());
+                              bool isUpdated = await service.createMetadata(
+                                tenantId: config.credentials["applicationId"],
+                                data: data,
+                              );
+                              if (isUpdated) {
+                                setState(() {
+                                  screenshotUploaded = true;
+                                });
+                                Future.delayed(Duration(seconds: 2), () {
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    screenshotUploaded = false;
+                                  });
+                                });
+                              }
                             }
                           },
                           child: Text(
@@ -147,8 +189,11 @@ void takeAndUploadScreenshot(
           );
         },
       );
+    } else {
+      Navigator.pop(context);
     }
   } catch (e) {
+    Navigator.pop(context);
     print(e.toString());
   }
 }
