@@ -6,7 +6,6 @@ import 'package:fab_analytics/models/attachment_model.dart';
 import 'package:fab_analytics/models/config_model.dart';
 import 'package:fab_analytics/services/file_upload_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:scroll_screenshot/scroll_screenshot.dart';
 
@@ -19,6 +18,7 @@ void takeAndUploadScreenshot(
   );
   try {
     String? selectedOption = 'select';
+    TextEditingController displayNameController = TextEditingController();
 
     bool screenshotUploaded = true;
 
@@ -31,7 +31,7 @@ void takeAndUploadScreenshot(
     Directory tempDir = await getTemporaryDirectory();
     String filePath = '${tempDir.path}/screenshot.png';
     File file = File(filePath);
-    file = await file.writeAsBytes(bytes!);
+    file = await file.writeAsBytes(bytes);
     AttachmentModel? attachmentModel = await service.uploadScreenshot(
       tenantId: config.credentials["applicationId"],
       image: file,
@@ -73,7 +73,7 @@ void takeAndUploadScreenshot(
                   'Which screen do you to want this screenshot to be mapped with?',
                 ),
                 content: Container(
-                  height: 200,
+                  height: 300,
                   padding: EdgeInsets.all(14),
                   child: Column(
                     children: [
@@ -98,6 +98,14 @@ void takeAndUploadScreenshot(
                           );
                         },
                       ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: displayNameController,
+                        decoration: InputDecoration(
+                          labelText: 'Display Name',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
                       screenshotUploaded
                           ? SizedBox(height: 30)
                           : SizedBox(
@@ -121,13 +129,16 @@ void takeAndUploadScreenshot(
                               // image['_id'] =
                               //     element["screentrace"]
                               //         ["_id"];
+                              String identifier =
+                                  element["screentrace"]["identifier"];
                               Map<String, dynamic> data = {
                                 "id": element["screentrace"]["_id"],
                                 "data": {
-                                  "identifier": element["screentrace"]
-                                      ["identifier"],
-                                  "displayName": element["screentrace"]
-                                      ["displayName"],
+                                  "identifier": identifier,
+                                  "displayName":
+                                      displayNameController.text.isNotEmpty
+                                          ? displayNameController.text
+                                          : identifier,
                                   "image": [attachmentModel.toJson()],
                                 }
                               };
@@ -151,10 +162,14 @@ void takeAndUploadScreenshot(
                                 });
                               }
                             } else {
+                              String identifier = element["_id"];
                               Map<String, dynamic> data = {
                                 "data": {
-                                  "identifier": element["_id"],
-                                  "displayName": element["_id"],
+                                  "identifier": identifier,
+                                  "displayName":
+                                      displayNameController.text.isNotEmpty
+                                          ? displayNameController.text
+                                          : identifier,
                                   "image": [attachmentModel.toJson()],
                                 }
                               };

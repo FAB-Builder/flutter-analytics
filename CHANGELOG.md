@@ -1,3 +1,7 @@
+## 0.0.6+3
+
+- Screenshot uploader improvements and fixes
+
 ## 0.0.6+2
 
 - Screenshot uploader improvements and fixes

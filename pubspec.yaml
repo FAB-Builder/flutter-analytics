@@ -1,6 +1,6 @@
 name: fab_analytics
 description: "This package will be used for quick and easy integration with Fab Analytics in your app."
-version: 0.0.6+2
+version: 0.0.6+3
 homepage: "https://analytics.fabbuilder.com"
 
 environment:
